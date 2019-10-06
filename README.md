@@ -1,4 +1,4 @@
-# alipay
+# dxvgef/alipay
 支付宝API For Golang
 
 ## 已实现功能：
@@ -97,10 +97,7 @@ func handler() {
     // 支付结果同步跳转
 	http.HandleFunc("/return", func(resp http.ResponseWriter, req *http.Request) {
 		resp.WriteHeader(200)
-		if _, err := resp.Write([]byte("充值完成")); err != nil {
-			log.Println(err.Error())
-			return
-		}
+		resp.Write([]byte("充值完成"))
 	})
 
     // 支付结果异步通知
@@ -111,16 +108,12 @@ func handler() {
 			return
 		}
 		resp.WriteHeader(200)
-		if _, err := resp.Write([]byte("success")); err != nil {
-			log.Println(err.Error())
-			return
-		}
+		resp.Write([]byte("success"))
 	})
 
-	err := http.ListenAndServe(":8080", nil)
-	if err != nil {
-		log.Println(err.Error())
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+        log.Println(err.Error())
 		return
-	}
+    }
 }
 ```
